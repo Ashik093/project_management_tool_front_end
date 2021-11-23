@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import Input from '../share/Input'
 import Card from '../share/Card'
 import Button from '../share/Button'
 import {
     Redirect
 } from "react-router-dom";
+import Axios from 'axios';
+import AppUrl from './../data/api/AppUrl'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -22,7 +25,20 @@ export default class Login extends Component {
         })
     }
     login=e=>{
-        this.setState({logged:true})
+        //console.log(AppUrl.test)
+        Axios.get(AppUrl.test)
+            .then((response)=>{
+                console.log(response.data)
+                toast.success('Success!',{
+                    position: "bottom-center",
+                    
+                })
+            })
+            .then((error)=>{
+
+            })
+
+        //this.setState({logged:true})
         //console.log(this.state)
     }
     
@@ -38,7 +54,7 @@ export default class Login extends Component {
                 <div className="row">
                     <div className="col-sm-6 offset-md-3">
                         <Card>
-                            <h3 className="bg-success p-3 text-white text-center">PMS Assistant</h3>
+                            <h3 className="bg-success p-3 text-white text-center">Project Management Tool</h3>
                             <div className="form-group">
                                 <label>Email</label>
                                 <input type="email" name="email" value={this.state.email} onChange={this.handleChange} className="form-control"/>
@@ -51,6 +67,7 @@ export default class Login extends Component {
                         </Card>
                     </div>
                 </div>
+                <ToastContainer/>
             </div>
         )
     }

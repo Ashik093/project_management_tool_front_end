@@ -13,13 +13,18 @@ import 'rsuite-table/dist/css/rsuite-table.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './assets/css/style.css'
 
+import store from './data/store/index'
+import { Provider } from 'react-redux';
+
 
 
 
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
       <App/>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
