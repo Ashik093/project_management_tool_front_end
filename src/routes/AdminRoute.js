@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import {Switch,Route, Router, Redirect,} from "react-router-dom";
 import Dashboard from '../component/Dashboard';
+import Logout from '../component/Logout';
 import Index from '../component/user/Index';
 class AdminRoute extends Component {
     render() {
@@ -12,6 +13,7 @@ class AdminRoute extends Component {
                     <Route exact path="/admin/user" component={Index}></Route>
                     <Route exact path="/admin/user/role" component={Index}></Route>
                     <Route exact path="/admin/permission" component={Index}></Route>
+                    <Route exact path="/admin/logout" component={Logout}></Route>
                    
                     <Route path="/" render={() => (
                         <Redirect to="/admin/dashboard"/>

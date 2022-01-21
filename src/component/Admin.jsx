@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 
-
 import TopBar from '../common/TopBar';
 import SideBar from '../common/SideBar';
 import AdminRoute from '../routes/AdminRoute';
 import { Fragment } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { connect } from 'react-redux';
+import {getToken} from '../helper/login'
 
-export default class Admin extends Component {
+class Admin extends Component {
     state={
         toogle:true,
         logged:false,
@@ -20,6 +23,12 @@ export default class Admin extends Component {
             this.setState({width:'width-75'})
         }
       }
+    componentDidMount=()=>{
+        if(getToken() === null){
+            this.props.history.push("/");
+        }
+       
+    }
     render() {
         return (
             <Fragment>
@@ -30,8 +39,16 @@ export default class Admin extends Component {
                         <AdminRoute></AdminRoute>
                     </div>
                 </div>
+                <ToastContainer/>
             </Fragment>
             
         )
     }
 }
+
+const mapStateToProps = state=>{
+    return {
+        authenticateUser:state.authenticateUser,
+    };
+}
+export default connect(mapStateToProps)(Admin)
