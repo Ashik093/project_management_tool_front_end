@@ -28,7 +28,7 @@ const login = (value, history) => dispatch => {
             }
         })
         .catch((error) => {
-            console.log(error)
+
             toast.error('Credentials not match', {
                 position: "bottom-center"
             })

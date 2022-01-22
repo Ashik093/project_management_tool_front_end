@@ -13,8 +13,9 @@ import 'rsuite-table/dist/css/rsuite-table.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './assets/css/style.css'
 
-import store from './data/store/index'
+import {store,persistor} from './data/store/index'
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'
 
 
 
@@ -22,7 +23,9 @@ import { Provider } from 'react-redux';
 ReactDOM.render( 
   <React.StrictMode >
     <Provider store = { store }>
+      <PersistGate loading={null} persistor={persistor}>
         <App/>
+      </PersistGate>
     </Provider> 
   </React.StrictMode> ,
   document.getElementById('root')

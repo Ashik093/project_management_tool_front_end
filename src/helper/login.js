@@ -16,6 +16,11 @@ export const removeToken = () => {
     return true
 }
 
+export const logout = (history) => {
+    localStorage.removeItem('token')
+    history.push("/")
+}
+
 export const seTAuthToken = (token) => {
     Axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
 }
