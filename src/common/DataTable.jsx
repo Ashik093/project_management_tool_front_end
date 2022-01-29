@@ -7,7 +7,7 @@ const ImageCell = ({ rowData, dataKey, ...rest }) => (
 );
 export default class DataTable extends Component {
   render() {
-      let {data} = this.props
+      let {data,tableProperty} = this.props
     return (
       <Table bordered height={380} data={data}>
         <Column width={60} fixed>
@@ -24,61 +24,29 @@ export default class DataTable extends Component {
             }}
           </Cell>
         </Column>
-        <Column width={100} sortable>
-          <HeaderCell>ID</HeaderCell>
-          <Cell dataKey="id" />
-        </Column>
-
-        <Column width={100} sortable resizable>
-          <HeaderCell>Name</HeaderCell>
-          <Cell dataKey="name" />
-        </Column>
-        <Column width={100} sortable resizable>
-          <HeaderCell>Name</HeaderCell>
-          <Cell dataKey="name" />
-        </Column>
-        <Column width={100} sortable resizable>
-          <HeaderCell>Name</HeaderCell>
-          <Cell dataKey="name" />
-        </Column>
-        <Column width={100} sortable resizable>
-          <HeaderCell>Name</HeaderCell>
-          <Cell dataKey="name" />
-        </Column>
-        <Column width={100} sortable resizable>
-          <HeaderCell>Name</HeaderCell>
-          <Cell dataKey="name" />
-        </Column>
-        <Column width={100} sortable resizable>
-          <HeaderCell>Name</HeaderCell>
-          <Cell dataKey="name" />
-        </Column>
-        <Column width={100} sortable resizable>
-          <HeaderCell>Name</HeaderCell>
-          <Cell dataKey="name" />
-        </Column>
-        <Column width={100} sortable resizable>
-          <HeaderCell>Name</HeaderCell>
-          <Cell dataKey="name" />
-        </Column>
-        <Column width={100} sortable resizable>
-          <HeaderCell>Name</HeaderCell>
-          <Cell dataKey="name" />
-        </Column>
-
-        <Column width={100} sortable resizable>
-          <HeaderCell>Email</HeaderCell>
-          <Cell>
-            {(rowData, rowIndex) => {
-              return <a href={`mailto:${rowData.email}`}>{rowData.email}</a>;
-            }}
-          </Cell>
-        </Column>
-
-        <Column width={80} resizable>
-          <HeaderCell>Avartar</HeaderCell>
-          <ImageCell dataKey="avartar" />
-        </Column>
+        {tableProperty.map(item=>{
+          if (item.type==='text') {
+            return <Column width={110} sortable resizable>
+              <HeaderCell>{item.headerCell}</HeaderCell>
+              <Cell dataKey={item.dataKey} />
+            </Column>
+          }else if(item.type==='image'){
+            return <Column width={80} sortable resizable>
+              <HeaderCell>{item.headerCell}</HeaderCell>
+              <ImageCell dataKey="profile_photo" />
+            </Column>
+          }else if(item.type==='email'){
+            return <Column width={120} sortable resizable>
+              <HeaderCell>{item.headerCell}</HeaderCell>
+              <Cell>
+                {(rowData, rowIndex) => {
+                  return <a href={`mailto:${rowData.email}`}>{rowData.email}</a>;
+                }}
+              </Cell>
+            </Column>
+          }
+          
+        })}
         <Column width={80} fixed="right">
           <HeaderCell>Action</HeaderCell>
 

@@ -7,12 +7,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { connect } from 'react-redux';
 import login from '../data/store/action/login';
 import {getToken,isTokenValid} from '../helper/login'
+import { Rings } from  'react-loader-spinner'
 
 class Login extends Component {
     state={
         email:'',
         password:'',
-        error:'' 
+        error:'',
+        loading:false 
     }
     
 
@@ -28,8 +30,12 @@ class Login extends Component {
         }else if(this.state.password==''){
             this.setState({error:'Password Can Not Empty'})
         }else{
+            this.setState({loading:true})
             this.setState({error:''})
             this.props.loginAction(this.state,history)
+            setTimeout(() => {
+                this.setState({loading:false})
+            }, 3000);
         }
     }
     componentDidMount=()=>{
@@ -47,8 +53,10 @@ class Login extends Component {
             
                 <div className="row">
                     <div className="col-sm-6 offset-md-3">
+                        
                         <Card>
                             <h3 className="bg-success p-3 text-white text-center">Project Management Tool</h3>
+                            
                             <form onSubmit={()=>{this.handleSubmit(event,this.props.history)}}>
                                 <div className="text-danger">
                                     {this.state.error}
@@ -61,12 +69,15 @@ class Login extends Component {
                                     <label>Password</label>
                                     <input type="password" name="password" value={this.state.password} onChange={this.handleChange} className="form-control"/>
                                 </div>
-                                <Button type="submit" classs="btn btn-danger shadow-sm" text="login"></Button>
+                                {!this.state.loading && <Button type="submit" classs="btn btn-danger shadow-sm" text="login"></Button>}
+                                {this.state.loading && <Rings ariaLabel="loading-indicator" width="500"/>}
+                                
                             </form>
                         </Card>
                     </div>
                 </div>
                 <ToastContainer/>
+                
             </div>
         )
     }
