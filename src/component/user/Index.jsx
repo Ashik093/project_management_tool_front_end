@@ -12,6 +12,7 @@ class Index extends Component {
     state={
         shouldCallUpdate:false,
         active:"All User",
+        module:'user',
         menu:[
             {
                 name:"All User",
@@ -406,8 +407,8 @@ class Index extends Component {
                     <Menu menu={this.state.menu} clickHandler={this.clickHandler} active={this.state.active}/>
                     <Summury summury={this.state.summury}/>
                     <Tools name={this.state.tools.name} feature={this.state.tools.feature}/>
-                    <Modal shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} toolNew={this.state.toolNew} formToPassModal={this.state.formToPassModal}/>
-                    <DataTable data={dataList} tableProperty={this.state.tableToPass}/>
+                    <Modal module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} toolNew={this.state.toolNew} formToPassModal={this.state.formToPassModal}/>
+                    <DataTable shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} data={dataList} tableProperty={this.state.tableToPass}/>
                 </div>
                 
             </div>

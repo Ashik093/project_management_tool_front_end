@@ -5,12 +5,14 @@ import dashboardReducer from './reducer/dashboardReducer'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import userReducer from './reducer/userReducer'
+import departmentReducer from './reducer/departmentReducer'
 
-const allReducer = combineReducers({ authenticateUser: loginReducer, dashboard: dashboardReducer, allUser: userReducer })
+const allReducer = combineReducers({ authenticateUser: loginReducer, dashboard: dashboardReducer, allUser: userReducer, allDepartment: departmentReducer })
 const initialValue = {
     authenticateUser: {},
     dashboard: {},
     allUser: {},
+    allDepartment: {},
 }
 
 const persistConfig = {

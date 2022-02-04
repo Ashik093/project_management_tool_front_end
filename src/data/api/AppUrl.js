@@ -4,7 +4,13 @@ class AppUrl {
     static me = this.baseUrl + '/me'
     static logout = this.baseUrl + '/auth/logout'
     static dashboard = this.baseUrl + '/dashboard'
+        //user
     static getAllUser = this.baseUrl + '/users'
     static storeUser = this.baseUrl + '/users'
+    static deleteUser = this.baseUrl + '/users/delete/'
+        //department
+    static getAllDepartment = this.baseUrl + '/department'
+    static storeDepartment = this.baseUrl + '/department'
+    static deleteDepartment = this.baseUrl + '/department/delete/'
 }
 export default AppUrl

@@ -16,6 +16,11 @@ export default class SideBar extends Component {
                 icon:"fas fa-user"
             },
             {
+                name:"Department",
+                link:"/admin/department",
+                icon:"fas fa-building"
+            },
+            {
                 name:"Employee",
                 link:"/admin/emplyee",
                 icon:"fas fa-user-tie"

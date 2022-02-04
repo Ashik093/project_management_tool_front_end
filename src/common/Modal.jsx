@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import storeUser from '../data/store/action/storeUser'
 import { Rings } from  'react-loader-spinner'
+import storeDepartment from '../data/store/action/storeDepartment';
 
 
 
@@ -10,20 +11,32 @@ class Modal extends Component {
         form:{},
         baseURL:'',
         close:React.createRef(),
-        loading:false
+        loading:false,
+        module:this.props.module
     }
     
     handleSubmit=(event)=>{
         event.preventDefault()
         this.setState({loading:true})
-        this.props.storeUserAction(this.state.form,this.props.customHistory,result=>{
-            if(result===true){
-                this.state.close.current.click();
-                this.props.shouldCallUpdate(true)
-                this.props.customHistory.push('/admin/user')
-            }
-            this.setState({loading:false})
-        })
+        if(this.state.module==='user'){
+            this.props.storeUserAction(this.state.form,this.props.customHistory,result=>{
+                if(result===true){
+                    this.state.close.current.click();
+                    this.props.shouldCallUpdate(true)
+                    this.props.customHistory.push('/admin/user')
+                }
+                this.setState({loading:false})
+            })
+        }else if(this.state.module==='department'){
+            this.props.storeDepartmentAction(this.state.form,this.props.customHistory,result=>{
+                if(result===true){
+                    this.state.close.current.click();
+                    this.props.shouldCallUpdate(true)
+                    this.props.customHistory.push('/admin/department')
+                }
+                this.setState({loading:false})
+            })
+        }   
         
     }
     handleChange=(event)=>{
@@ -148,9 +161,13 @@ class Modal extends Component {
 }
 const mapDispatchToProps = dispatch=>{
     return {
-      storeUserAction: (data,history,callback)=>{
+        storeUserAction: (data,history,callback)=>{
           dispatch(storeUser(data,history,callback))
+        },
+        storeDepartmentAction:(data,history,callback)=>{
+            dispatch(storeDepartment(data,history,callback))
         }
+        
     }
   }
 export default connect(null,mapDispatchToProps)(Modal);
