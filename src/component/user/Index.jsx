@@ -340,7 +340,11 @@ class Index extends Component {
                 width:100
             },
         ],
-        tableToPass:[]
+        tableToPass:[],
+        toolEdit:{
+            title:"Edit",
+            id:"#new"
+        },
 
     }
 
@@ -408,7 +412,7 @@ class Index extends Component {
                     <Summury summury={this.state.summury}/>
                     <Tools name={this.state.tools.name} feature={this.state.tools.feature}/>
                     <Modal module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} toolNew={this.state.toolNew} formToPassModal={this.state.formToPassModal}/>
-                    <DataTable shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} data={dataList} tableProperty={this.state.tableToPass}/>
+                    <DataTable toolEdit={this.state.toolEdit} module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} data={dataList} tableProperty={this.state.tableToPass}/>
                 </div>
                 
             </div>

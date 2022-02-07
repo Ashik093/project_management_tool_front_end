@@ -24,6 +24,10 @@ class Index extends Component {
             title:"New",
             id:"new"
         },
+        toolEdit:{
+            title:"Edit",
+            id:"#new"
+        },
         form:[
             {
                 type:'text',
@@ -93,7 +97,7 @@ class Index extends Component {
             
                 <Tools name={this.state.tools.name} feature={this.state.tools.feature}/>
                 <Modal module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} toolNew={this.state.toolNew} formToPassModal={this.state.form}/>
-                <DataTable shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} data={department} tableProperty={this.state.table}/>
+                <DataTable toolEdit={this.state.toolEdit} module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} data={department} tableProperty={this.state.table}/>
             </div>        
         </div>
     )

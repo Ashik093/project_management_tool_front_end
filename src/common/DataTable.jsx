@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { Rings } from  'react-loader-spinner'
 import deleteUser from './../data/store/action/deleteUser'
+import deleteDepartment from "../data/store/action/deleteDepartment";
 const ImageCell = ({ rowData, dataKey, ...rest }) => (
   <Cell {...rest}>
     <img src={rowData[dataKey]} width="30" />
@@ -12,7 +13,9 @@ const ImageCell = ({ rowData, dataKey, ...rest }) => (
 );
 class DataTable extends Component {
   state={
-    loading:false
+    loading:false,
+    module:this.props.module,
+    open:React.createRef(),
   }
   
   render() {
@@ -58,7 +61,16 @@ class DataTable extends Component {
 
           <Cell>
             {(rowData) => {
-               const handleAction=()=>{
+              const handleEditAction=()=>{
+                if(this.state.module==='user'){
+                  console.log(rowData.id)
+                  this.state.open.current.click();
+                }else if(this.state.module==='department'){
+                  console.log(rowData.id)
+                  this.state.open.current.click();
+                }
+              }
+               const handleDeleteAction=()=>{
                 const MySwal = withReactContent(Swal)
                 MySwal.fire({
                   title: 'Are you sure?',
@@ -70,29 +82,46 @@ class DataTable extends Component {
                   confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    this.props.deleteUserAction(rowData.id,this.props.customHistory,result=>{
-                      if(result===true){
-                        Swal.fire(
-                          'Deleted!',
-                          'Your file has been deleted.',
-                          'success'
-                        )
-                          this.props.shouldCallUpdate(true)
-                          this.props.customHistory.push('/admin/user')
-                      }
-                     
-                  })
+                    if(this.state.module==='user'){
+                        this.props.deleteUserAction(rowData.id,this.props.customHistory,result=>{
+                          if(result===true){
+                            Swal.fire(
+                              'Deleted!',
+                              'Your file has been deleted.',
+                              'success'
+                            )
+                              this.props.shouldCallUpdate(true)
+                              this.props.customHistory.push('/admin/user')
+                          }
+                        
+                      })
+                    }else if(this.state.module==='department'){
+                        this.props.deleteDepartmentAction(rowData.id,this.props.customHistory,result=>{
+                          if(result===true){
+                            Swal.fire(
+                              'Deleted!',
+                              'Your file has been deleted.',
+                              'success'
+                            )
+                              this.props.shouldCallUpdate(true)
+                              this.props.customHistory.push('/admin/department')
+                          }
+                        
+                      })
+                    }
+                    
                       
                   }
                 })        
               }
               return (
                 <span>
-                  <a href="#" onClick={handleAction}>
+                <a ref={this.state.open} href="#" className="d-none" data-toggle="modal" data-target={this.props.toolEdit.id}></a>
+                  <a href="#" onClick={handleEditAction}>
                     {" "}
                     <i className="fas fa-edit"></i>{" "}
                   </a>{" "}
-                  <a href="#" onClick={handleAction}>
+                  <a href="#" onClick={handleDeleteAction}>
                     <i className="fas fa-trash"></i>
                   </a>
                 </span>
@@ -108,8 +137,11 @@ class DataTable extends Component {
 const mapDispatchToProps = dispatch=>{
   return {
     deleteUserAction: (data,history,callback)=>{
-        dispatch(deleteUser(data,history,callback))
-      }
+      dispatch(deleteUser(data,history,callback))
+    },
+    deleteDepartmentAction: (data,history,callback)=>{
+      dispatch(deleteDepartment(data,history,callback))
+    }
   }
 }
 export default connect(null,mapDispatchToProps)(DataTable);
