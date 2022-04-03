@@ -14,7 +14,7 @@ class Index extends Component {
             feature:[
                 {icon:"fas fa-plus mt-1",name:"New",id:"#new"},
                 {icon:"fas fa-trash mt-1",name:"Delete",id:"#delete"},
-                {icon:"fas fa-plus mt-1",name:"New",id:"#edit"},
+                {icon:"fas fa-plus mt-1",name:"Edit",id:"#edit"},
                 {icon:"fas fa-plus mt-1",name:"New",id:"#view"},
                 {icon:"fas fa-plus mt-1",name:"New",id:"#excel"},
                 {icon:"fas fa-plus mt-1",name:"New",id:"#pdf"},
@@ -26,7 +26,7 @@ class Index extends Component {
         },
         toolEdit:{
             title:"Edit",
-            id:"#new"
+            id:"edit"
         },
         form:[
             {
@@ -34,16 +34,20 @@ class Index extends Component {
                 label:'Code',
                 name:'code',
                 id:'code',
-                position:'left'
+                position:'left',
+                
             },
             {
                 type:'Name',
                 label:'Name',
                 name:'name',
                 id:'name',
-                position:'right'
+                position:'right',
+                
             }
         ],
+        editForm:[],
+        editFormData:{},
         table:[
             {
                 headerCell:"ID",
@@ -89,6 +93,47 @@ class Index extends Component {
     updateShouldCallUpdate=(value)=>{
         this.setState({shouldCallUpdate:value})
     }
+    changeFormStateForEdit=(value,callback)=>{
+        let updatedForm=[
+            {
+                type:'hidden',
+                label:'',
+                name:'action',
+                id:'action',
+                position:'hidden',
+                value:'update'
+            },
+            {
+                type:'hidden',
+                label:'',
+                name:'id',
+                id:'id',
+                position:'hidden',
+                value:value.id
+            },
+            {
+                type:'text',
+                label:'Code',
+                name:'code',
+                id:'code',
+                position:'left',
+                value:value.code
+            },
+            {
+                type:'Name',
+                label:'Name',
+                name:'name',
+                id:'name',
+                position:'right',
+                value:value.name
+                
+            }
+        ];
+        this.setState({editForm:updatedForm})
+        this.setState({editFormData:value})
+        callback(true)
+    }
+    
   render() {
       let department = this.props.allDepartment.data
     return (
@@ -96,8 +141,8 @@ class Index extends Component {
             <div className="warpper-container">
             
                 <Tools name={this.state.tools.name} feature={this.state.tools.feature}/>
-                <Modal module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} toolNew={this.state.toolNew} formToPassModal={this.state.form}/>
-                <DataTable toolEdit={this.state.toolEdit} module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} data={department} tableProperty={this.state.table}/>
+                <Modal module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} toolNew={this.state.toolNew} toolEdit={this.state.toolEdit} formToPassModal={this.state.form} editFormToPassModal={this.state.editForm} editFormData={this.state.editFormData}/>
+                <DataTable toolEdit={this.state.toolEdit} module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} data={department} tableProperty={this.state.table} changeFormStateForEdit={this.changeFormStateForEdit}/>
             </div>        
         </div>
     )

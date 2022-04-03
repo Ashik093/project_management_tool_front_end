@@ -66,8 +66,14 @@ class DataTable extends Component {
                   console.log(rowData.id)
                   this.state.open.current.click();
                 }else if(this.state.module==='department'){
-                  console.log(rowData.id)
-                  this.state.open.current.click();
+                  this.props.changeFormStateForEdit(rowData,result=>{
+                    if(result===true){
+                      //console.log(rowData)
+                      this.state.open.current.click();
+                    }
+                  })
+                  
+
                 }
               }
                const handleDeleteAction=()=>{
@@ -116,7 +122,7 @@ class DataTable extends Component {
               }
               return (
                 <span>
-                <a ref={this.state.open} href="#" className="d-none" data-toggle="modal" data-target={this.props.toolEdit.id}></a>
+                <a ref={this.state.open} href="#" className="d-none" data-toggle="modal" data-target={"#"+this.props.toolEdit.id}></a>
                   <a href="#" onClick={handleEditAction}>
                     {" "}
                     <i className="fas fa-edit"></i>{" "}
