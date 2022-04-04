@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import storeUser from '../data/store/action/storeUser'
 import { Rings } from  'react-loader-spinner'
 import storeDepartment from '../data/store/action/storeDepartment';
+import updateDepartment from '../data/store/action/updateDepartment';
 
 
 
@@ -61,16 +62,15 @@ class Modal extends Component {
                 
             // })
         }else if(this.state.module==='department'){
-            // this.props.storeDepartmentAction(this.state.form,this.props.customHistory,result=>{
-            //     if(result===true){
-            //         this.state.close.current.click();
-            //         this.props.shouldCallUpdate(true)
-            //         this.props.customHistory.push('/admin/department')
-            //     }
-            //     this.setState({loading:false})
-            //     this.formRef.reset()
-            //  })
-            console.log(this.state.editForm)
+            this.props.updateDepartmentAction(this.state.editForm,this.props.customHistory,result=>{
+                if(result===true){
+                    this.state.close.current.click();
+                    this.props.shouldCallUpdate(true)
+                    this.props.customHistory.push('/admin/department')
+                }
+                this.setState({loading:false})
+                this.formRef.reset()
+             })
         }
     }
     handleChange=(event)=>{
@@ -321,6 +321,9 @@ const mapDispatchToProps = dispatch=>{
         },
         storeDepartmentAction:(data,history,callback)=>{
             dispatch(storeDepartment(data,history,callback))
+        },
+        updateDepartmentAction:(data,history,callback)=>{
+            dispatch(updateDepartment(data,history,callback))
         }
         
     }

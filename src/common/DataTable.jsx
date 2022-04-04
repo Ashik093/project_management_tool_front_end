@@ -63,17 +63,17 @@ class DataTable extends Component {
             {(rowData) => {
               const handleEditAction=()=>{
                 if(this.state.module==='user'){
-                  console.log(rowData.id)
-                  this.state.open.current.click();
-                }else if(this.state.module==='department'){
                   this.props.changeFormStateForEdit(rowData,result=>{
                     if(result===true){
-                      //console.log(rowData)
                       this.state.open.current.click();
                     }
                   })
-                  
-
+                }else if(this.state.module==='department'){
+                  this.props.changeFormStateForEdit(rowData,result=>{
+                    if(result===true){
+                      this.state.open.current.click();
+                    }
+                  })
                 }
               }
                const handleDeleteAction=()=>{

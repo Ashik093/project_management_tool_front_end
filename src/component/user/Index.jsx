@@ -343,8 +343,10 @@ class Index extends Component {
         tableToPass:[],
         toolEdit:{
             title:"Edit",
-            id:"#new"
+            id:"edit"
         },
+        editForm:[],
+        editFormData:{},
 
     }
 
@@ -396,6 +398,46 @@ class Index extends Component {
     updateShouldCallUpdate=(value)=>{
         this.setState({shouldCallUpdate:value})
     }
+    changeFormStateForEdit=(value,callback)=>{
+        let updatedForm=[
+            {
+                type:'hidden',
+                label:'',
+                name:'action',
+                id:'action',
+                position:'hidden',
+                value:'update'
+            },
+            {
+                type:'hidden',
+                label:'',
+                name:'id',
+                id:'id',
+                position:'hidden',
+                value:value.id
+            },
+            {
+                type:'text',
+                label:'Code',
+                name:'code',
+                id:'code',
+                position:'left',
+                value:value.code
+            },
+            {
+                type:'Name',
+                label:'Name',
+                name:'name',
+                id:'name',
+                position:'right',
+                value:value.name
+                
+            }
+        ];
+        this.setState({editForm:updatedForm})
+        this.setState({editFormData:value})
+        callback(true)
+    }
     
     render() {
         let dataList = this.props.allUser.data
@@ -411,8 +453,8 @@ class Index extends Component {
                     <Menu menu={this.state.menu} clickHandler={this.clickHandler} active={this.state.active}/>
                     <Summury summury={this.state.summury}/>
                     <Tools name={this.state.tools.name} feature={this.state.tools.feature}/>
-                    <Modal module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} toolNew={this.state.toolNew} formToPassModal={this.state.formToPassModal}/>
-                    <DataTable toolEdit={this.state.toolEdit} module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} data={dataList} tableProperty={this.state.tableToPass}/>
+                    <Modal module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} toolNew={this.state.toolNew} toolEdit={this.state.toolEdit} formToPassModal={this.state.formToPassModal} editFormToPassModal={this.state.editForm} editFormData={this.state.editFormData}/>
+                    <DataTable toolEdit={this.state.toolEdit} module={this.state.module} shouldCallUpdate={this.updateShouldCallUpdate} customHistory={this.props.history} data={dataList} tableProperty={this.state.tableToPass} changeFormStateForEdit={this.changeFormStateForEdit}/>
                 </div>
                 
             </div>

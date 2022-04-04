@@ -1,6 +1,6 @@
 class AppUrl {
-    //static baseUrl = "http://localhost:8000/api"
-	static baseUrl = "https://apipmt.the-ashikur.com/api"
+    static baseUrl = "http://localhost:8000/api"
+        //static baseUrl = "https://apipmt.the-ashikur.com/api"
     static login = this.baseUrl + '/auth/login'
     static me = this.baseUrl + '/me'
     static logout = this.baseUrl + '/auth/logout'
@@ -13,5 +13,6 @@ class AppUrl {
     static getAllDepartment = this.baseUrl + '/department'
     static storeDepartment = this.baseUrl + '/department'
     static deleteDepartment = this.baseUrl + '/department/delete/'
+    static updateDepartment = this.baseUrl + '/department/update'
 }
 export default AppUrl
